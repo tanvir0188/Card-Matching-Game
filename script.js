@@ -79,7 +79,7 @@ function flipCard() {
 function matchingCards(){
     let firstCard = flippedCards[0]
     let secondCard = flippedCards[1]
-    const imgArray = document.querySelectorAll('img')
+    const imgArray = document.querySelectorAll('img') // gets the array of every img
 
     if(firstCard === secondCard){
         const img = document.querySelector(`img[data-id="${firstCard}"]`);
@@ -104,7 +104,6 @@ function matchingCards(){
         imgArray[secondCard].removeEventListener('click', flipCard)
 
     }
-
     flippedCards = []
     console.log(flippedCards)
 }
