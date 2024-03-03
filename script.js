@@ -45,7 +45,7 @@ function randomComparator() {
     return Math.random() - 0.5;
 }
 
-//cards.sort(randomComparator);
+cards.sort(randomComparator);
 
 const display = document.querySelector('#grid');
 let flippedCards = [];// data-id of the flipped cards
@@ -74,13 +74,12 @@ function flipCard() {
         matchingCards()
     }
 
-
-
 }
 
 function matchingCards(){
     let firstCard = flippedCards[0]
     let secondCard = flippedCards[1]
+    const imgArray = document.querySelectorAll('img')
 
     if(firstCard === secondCard){
         const img = document.querySelector(`img[data-id="${firstCard}"]`);
@@ -89,11 +88,23 @@ function matchingCards(){
     }
 
     else if (cards[firstCard].name === cards[secondCard].name){
-        score ++;
-        document.getElementById('result').innerHTML = score
+        matchedCards.push(firstCard, secondCard)
+        document.getElementById('result').innerHTML = matchedCards.length/2
+        imgArray[firstCard].setAttribute('src', 'images/white.png')
+        imgArray[secondCard].setAttribute('src', 'images/white.png')
+
+        imgArray[firstCard].removeEventListener('click', flipCard)
+        imgArray[secondCard].removeEventListener('click', flipCard)
+
         console.log("matched")
 
     }
+    else if(cards[firstCard].name !== cards[secondCard].name){
+        imgArray[firstCard].removeEventListener('click', flipCard)
+        imgArray[secondCard].removeEventListener('click', flipCard)
+
+    }
+
     flippedCards = []
     console.log(flippedCards)
 }
