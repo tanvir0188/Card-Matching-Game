@@ -58,6 +58,7 @@ function createBoard(){
         img.setAttribute('src', 'images/blank.png')
         img.setAttribute('data-id', i)
         img.addEventListener('click', flipCard)
+
         display.append(img)
     }
 }
@@ -86,27 +87,35 @@ function matchingCards(){
         img.setAttribute('src', 'images/blank.png');
         flippedCards = []
     }
-
     else if (cards[firstCard].name === cards[secondCard].name){
         matchedCards.push(firstCard, secondCard)
         document.getElementById('result').innerHTML = matchedCards.length/2
+
         imgArray[firstCard].setAttribute('src', 'images/white.png')
         imgArray[secondCard].setAttribute('src', 'images/white.png')
 
         imgArray[firstCard].removeEventListener('click', flipCard)
         imgArray[secondCard].removeEventListener('click', flipCard)
-
-        console.log("matched")
-
     }
     else if(cards[firstCard].name !== cards[secondCard].name){
+        alert('You lost! try again')
         imgArray[firstCard].removeEventListener('click', flipCard)
         imgArray[secondCard].removeEventListener('click', flipCard)
 
     }
+
+    if(imgArray)
+
+    if  (matchedCards.length/2 === 5) {
+        document.getElementById('result').innerHTML = 'Congratulations! You found them all!'
+    }
     flippedCards = []
+
+
     console.log(flippedCards)
 }
+
+
 
 
 
