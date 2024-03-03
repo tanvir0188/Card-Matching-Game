@@ -45,11 +45,11 @@ function randomComparator() {
     return Math.random() - 0.5;
 }
 
-cards.sort(randomComparator);
+//cards.sort(randomComparator);
 
 const display = document.querySelector('#grid');
-let flippedCards = [];
-let matchedCards = [];
+let flippedCards = [];// data-id of the flipped cards
+let matchedCards = [];//for the cards that matched
 let score = 0;
 
 function createBoard(){
@@ -64,38 +64,43 @@ function createBoard(){
 
 createBoard()
 
-function flipCard(event){
-    let clickedIndex = event.target.getAttribute('data-id');
-    event.target.setAttribute('src', cards[clickedIndex].image);
+function flipCard() {
+    let clickedDataId = this.getAttribute('data-id');
 
-    if(flippedCards.includes(clickedIndex)){
-        event.target.setAttribute('src', 'images/blank.png')
+    flippedCards.push(clickedDataId);
+    this.setAttribute('src', cards[clickedDataId].image)
+
+    if (flippedCards.length === 2){
+        matchingCards()
+    }
+
+
+
+}
+
+function matchingCards(){
+    let firstCard = flippedCards[0]
+    let secondCard = flippedCards[1]
+
+    if(firstCard === secondCard){
+        const img = document.querySelector(`img[data-id="${firstCard}"]`);
+        img.setAttribute('src', 'images/blank.png');
         flippedCards = []
-    }else{
-        flippedCards.push(clickedIndex);
-        matchedCards.push(clickedIndex);
     }
 
-    if(flippedCards.length === 2 ){
-        flippedCards = []
-    }
+    else if (cards[firstCard].name === cards[secondCard].name){
+        score ++;
+        document.getElementById('result').innerHTML = score
+        console.log("matched")
 
-    if( matchedCards.length === 2){
-
-        setTimeout(matching, 500); // Call matching function after a delay
     }
+    flippedCards = []
+    console.log(flippedCards)
 }
 
 
-function matching(){
 
-    if(matchedCards.length === 2){
-        let firstImage = matchedCards[0]
-        let secondImage = matchedCards[1]
 
-        if(cards[firstImage].name === cards[secondImage].name){
-            score++;
-            console.log("Score: " + score);
-        }
-    }
-}
+
+
+
